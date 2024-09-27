@@ -61,4 +61,9 @@ public class BoardServiceImpl implements BoardService {
 		repository.save(entity);
 	}
 
+	@Override
+	public void remove(int no) {
+		repository.deleteById(no);
+	}
+
 }

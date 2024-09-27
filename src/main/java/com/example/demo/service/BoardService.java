@@ -16,6 +16,8 @@ public interface BoardService {
 	
 	void modify(BoardDTO dto);
 	
+	void remove(int no);
+	
 	// default 키워드: 인터페이스에서 일반 함수를 추가하는 기능
 	// DTO를 엔티티로 변환하는 메소드
 	default Board dtoToEntity(BoardDTO dto) {

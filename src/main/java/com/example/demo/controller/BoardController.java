@@ -68,4 +68,10 @@ public class BoardController {
         redirectAttributes.addAttribute("no", dto.getNo());
         return "redirect:/board/read";
     }
+    
+    @PostMapping("/remove")
+    public String removePost(@RequestParam(name = "no") int no) {
+    	service.remove(no);
+		return "redirect:/board/list";
+    }
 }
