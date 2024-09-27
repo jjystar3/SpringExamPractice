@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,22 @@ public class BoardServiceImpl implements BoardService {
 
 		// 변환한 DTO 리스트 반환
         return list;
+	}
+
+	@Override
+	public BoardDTO read(int no) {
+		Optional<Board> result = repository.findById(no);
+		Board board = result.get();
+		return entityToDTO(board);
+	}
+
+	@Override
+	public void modify(BoardDTO dto) {
+		Optional<Board> result = repository.findById(dto.getNo());
+		Board entity = result.get();
+		entity.setTitle(dto.getTitle());
+		entity.setContent(dto.getContent());
+		repository.save(entity);
 	}
 
 }

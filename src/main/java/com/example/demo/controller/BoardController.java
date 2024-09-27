@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.dto.BoardDTO;
@@ -47,4 +48,24 @@ public class BoardController {
 		redirectAttributes.addFlashAttribute("no", no);
 		return "redirect:/board/list";
 	}
+	
+	@GetMapping("/read")
+	public void read(@RequestParam(name = "no") int no, Model model) {
+		BoardDTO dto = service.read(no);
+		model.addAttribute("dto", dto);
+	}
+	
+
+	@GetMapping("/modify")
+	public void modify(@RequestParam(name = "no") int no, Model model) {
+		BoardDTO dto = service.read(no);
+		model.addAttribute("dto", dto);		
+	}
+	
+    @PostMapping("/modify")
+    public String modifyPost(BoardDTO dto, RedirectAttributes redirectAttributes) {
+        service.modify(dto);
+        redirectAttributes.addAttribute("no", dto.getNo());
+        return "redirect:/board/read";
+    }
 }
